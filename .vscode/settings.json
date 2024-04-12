@@ -1,0 +1,17 @@
+{
+    "emmet.triggerExpansionOnTab": true,
+    "editor.fontSize": 17,
+    "editor.fontFamily": "'cascadia code'",
+    "editor.fontLigatures": true,
+    "window.zoomLevel": 0,
+    "editor.mouseWheelZoom": false,
+    "window.zoomPerWindow": false,
+    "editor.wordWrap": "on",
+    "workbench.sideBar.location": "left",
+    "workbench.statusBar.visible": true,
+    "editor.cursorStyle": "line",
+    "editor.cursorBlinking": "expand",
+    "files.autoSave": "afterDelay",
+    "workbench.editor.openSideBySideDirection": "right",
+    "explorer.enableDragAndDrop": true
+}
