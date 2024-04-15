@@ -1,4 +1,3 @@
-import styled from "styled-components"
 import { TaskPropsType } from "../App"
 import { Button } from "./Button"
 
@@ -9,9 +8,9 @@ type ToDoListTypeProps = {
     deleteTask: (taskId: number) => void
 }
 
-export const ToDoList = ({ title, task, deleteTask}: ToDoListTypeProps) => {
+export const ToDoList = ({ title, task, deleteTask }: ToDoListTypeProps) => {
     return (
-        <Wrap>
+        <div className="todoList">
             <h3>{title}</h3>
             <div>
                 <input />
@@ -21,25 +20,22 @@ export const ToDoList = ({ title, task, deleteTask}: ToDoListTypeProps) => {
             {task.length === 0 ? (
                 <p>List is Empty</p>
             ) : (
-            <ul>
-                {task.map(t => <li key={t.id}>
-                            <input type="checkbox" checked={t.isDone} />
-                            <span>{t.title}</span>
-                            <Button title="x" onClick={() => deleteTask(t.id)} />
-                        </li>
-                )}
+                <ul>
+                    {task.map(t => <li key={t.id}>
+                        <input type="checkbox" checked={t.isDone} />
+                        <span>{t.title}</span>
+                        <Button title="x" onClickHandler={() => deleteTask(t.id)} />
+                    </li>
+                    )}
 
-            </ul>
-        )}
-            <div>
-               <Button title="All" />
-               <Button title="Active" />
-               <Button title="Completed" />
+                </ul>
+            )}
+            <div className="buttonStile">
+                <Button title="All" />
+                <Button title="Active" />
+                <Button title="Completed" />
             </div>
-        </Wrap>
+        </div>
     )
 }
 
-const Wrap = styled.div`
-background-color: #ff9955;
-`

@@ -8,53 +8,58 @@ import { ToDoList } from './components/ToDoList';
 //Update
 //Delete
 
-export type FilterValueType = {
-
-}
-
-
 export type TaskPropsType = {
     id: number
     title: string
     isDone: boolean
 }
 
+type filterValueType = "all" | "active" | "completed"
+
+
 function App() {
     //BLL
     //Global state
     const [tasks, setTasks] = useState<TaskPropsType[]>([
         { id: 1, title: "HTML", isDone: true },
-        { id: 2, title: "", isDone: true },
-        { id: 3, title: "React", isDone: false },
-        { id: 4, title: "Redax", isDone: false }
+        { id: 2, title: "CSS", isDone: true },
+        { id: 3, title: "JS/TS", isDone: true },
+        { id: 4, title: "React", isDone: false },
+        { id: 5, title: "Redax", isDone: false }
     ])
 
-    const deleteTasks = (taskId: number) => {
-        const tasks1 = tasks.filter(task => {
-            return task.id !== taskId
-        })
+    const todoListTitle = "What to learn"
+
+    const removeTask = (taskId: number) => {
+        const tasks1 = tasks.filter(task => task.id !== taskId)
         setTasks(tasks1)
     }
 
     //Local state
-    const [filter, setFilter] = useState<FilterValueType>("all")
+    const [filter, setFilter] = useState<filterValueType>("all")
 
-    let tasksForTodoList = tasks
-    if(filter === "active"){
-        tasksForTodoList = tasks.filter(task => task.isDone === false)
+    const getFilteredTask = (allTask: Array<TaskPropsType>, currentFilter: filterValueType): Array<TaskPropsType> => {
+        switch (currentFilter) {
+            case "active":
+                return allTask.filter(t => t.isDone === false)
+            case "completed":
+                return allTask.filter(t => t.isDone === true)
+            default:
+                return allTask;
+        }
     }
-    if(filter == "completed"){
-        tasksForTodoList = tasks.filter(task => task.isDone === false)
-    }
-    
 
-// UI
+    const filterdeTask = getFilteredTask(tasks, filter)
+
+
+
+    // UI
     return (
         <div className="App">
             <ToDoList
-                title="Empty List"
-                task={tasksForTodoList}
-                deleteTask={deleteTasks}
+                title={todoListTitle}
+                task={filterdeTask}
+                deleteTask={removeTask}
             />
         </div>
     );
