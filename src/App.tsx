@@ -14,7 +14,7 @@ export type TaskPropsType = {
     isDone: boolean
 }
 
-type filterValueType = "all" | "active" | "completed"
+export type filterValueType = "all" | "active" | "completed"
 
 
 function App() {
@@ -36,6 +36,8 @@ function App() {
     }
 
     //Local state
+
+    
     const [filter, setFilter] = useState<filterValueType>("all")
 
     const getFilteredTask = (allTask: Array<TaskPropsType>, currentFilter: filterValueType): Array<TaskPropsType> => {
@@ -49,6 +51,10 @@ function App() {
         }
     }
 
+    const changeTodoListTask = (filter: filterValueType) => {
+        setFilter(filter)
+    }
+
     const filterdeTask = getFilteredTask(tasks, filter)
 
 
@@ -60,6 +66,7 @@ function App() {
                 title={todoListTitle}
                 task={filterdeTask}
                 deleteTask={removeTask}
+                changeTodoListTask={changeTodoListTask}
             />
         </div>
     );

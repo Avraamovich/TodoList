@@ -1,4 +1,4 @@
-import { TaskPropsType } from "../App"
+import { TaskPropsType, filterValueType } from "../App"
 import { Button } from "./Button"
 
 
@@ -6,9 +6,13 @@ type ToDoListTypeProps = {
     title: string
     task: Array<TaskPropsType>
     deleteTask: (taskId: number) => void
+    changeTodoListTask: (filter: filterValueType) => void
 }
 
-export const ToDoList = ({ title, task, deleteTask }: ToDoListTypeProps) => {
+export const ToDoList = ({ title,
+    task,
+    deleteTask,
+    changeTodoListTask }: ToDoListTypeProps) => {
     return (
         <div className="todoList">
             <h3>{title}</h3>
@@ -31,9 +35,9 @@ export const ToDoList = ({ title, task, deleteTask }: ToDoListTypeProps) => {
                 </ul>
             )}
             <div className="buttonStile">
-                <Button title="All" />
-                <Button title="Active" />
-                <Button title="Completed" />
+                <Button title="All" onClickHandler={() => changeTodoListTask("all")} />
+                <Button title="Active" onClickHandler={() => changeTodoListTask("active")} />
+                <Button title="Completed" onClickHandler={() => changeTodoListTask("completed")} />
             </div>
         </div>
     )
