@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { ToDoList } from './components/ToDoList';
+import { v1 } from 'uuid';
 
 
 //Creat
@@ -9,7 +10,7 @@ import { ToDoList } from './components/ToDoList';
 //Delete
 
 export type TaskPropsType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -21,23 +22,25 @@ function App() {
     //BLL
     //Global state
     const [tasks, setTasks] = useState<TaskPropsType[]>([
-        { id: 1, title: "HTML", isDone: true },
-        { id: 2, title: "CSS", isDone: true },
-        { id: 3, title: "JS/TS", isDone: true },
-        { id: 4, title: "React", isDone: false },
-        { id: 5, title: "Redax", isDone: false }
+        { id: v1(), title: "HTML", isDone: true },
+        { id: v1(), title: "CSS", isDone: true },
+        { id: v1(), title: "JS/TS", isDone: true },
+        { id: v1(), title: "React", isDone: false },
+        { id: v1(), title: "Redax", isDone: false }
     ])
+
+    console.log(tasks);
 
     const todoListTitle = "What to learn"
 
-    const removeTask = (taskId: number) => {
+    const removeTask = (taskId: string) => {
         const tasks1 = tasks.filter(task => task.id !== taskId)
         setTasks(tasks1)
     }
 
     //Local state
 
-    
+
     const [filter, setFilter] = useState<filterValueType>("all")
 
     const getFilteredTask = (allTask: Array<TaskPropsType>, currentFilter: filterValueType): Array<TaskPropsType> => {
@@ -57,7 +60,15 @@ function App() {
 
     const filterdeTask = getFilteredTask(tasks, filter)
 
-
+    const addTask = (title: string) => {
+        const newTask = {
+            id: v1(),
+            title,
+            isDone: false,
+        }
+        const newTasks = [newTask, ...tasks]
+        setTasks(newTasks)
+    }
 
     // UI
     return (
@@ -67,6 +78,7 @@ function App() {
                 task={filterdeTask}
                 deleteTask={removeTask}
                 changeTodoListTask={changeTodoListTask}
+                addTask={addTask}
             />
         </div>
     );

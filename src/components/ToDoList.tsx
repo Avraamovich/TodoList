@@ -1,24 +1,52 @@
 import { TaskPropsType, filterValueType } from "../App"
 import { Button } from "./Button"
+import { useRef, useState } from "react"
 
 
 type ToDoListTypeProps = {
     title: string
     task: Array<TaskPropsType>
-    deleteTask: (taskId: number) => void
+    deleteTask: (taskId: string) => void
     changeTodoListTask: (filter: filterValueType) => void
+    addTask: (title: string) => void
 }
 
 export const ToDoList = ({ title,
     task,
     deleteTask,
-    changeTodoListTask }: ToDoListTypeProps) => {
+    changeTodoListTask,
+    addTask }: ToDoListTypeProps) => {
+    // const inputRef = useRef<HTMLInputElement>(null)
+    const [taskTitle, setTaskTitle] = useState("")
+    const addTaskHandler = () => {
+        addTask(taskTitle)
+        setTaskTitle("")
+    }
+
     return (
         <div className="todoList">
             <h3>{title}</h3>
             <div>
-                <input />
-                <Button title="X" />
+                <input value={taskTitle}
+                    onChange={(event) => {
+                        setTaskTitle(event.currentTarget.value)
+                    }}
+                    onKeyUp={event => {
+                        if(event.key === "Enter"){
+                            addTaskHandler()
+                        }
+                    }}
+                />   {/*ref={inputRef}*/}
+
+                <Button title="+" onClickHandler={() => {
+                    addTaskHandler()
+                    // if (inputRef.current) {
+                    //     addTask(inputRef.current.value)
+                    //     inputRef.current.value = ""
+                    // }
+                }
+                } />
+
             </div>
 
             {task.length === 0 ? (
